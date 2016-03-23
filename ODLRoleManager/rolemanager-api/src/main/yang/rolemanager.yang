@@ -1,0 +1,202 @@
+module rolemanager {
+
+    yang-version 1;
+
+    namespace
+      "http://netconfcentral.org/ns/rolemanager";
+
+    prefix rm;
+
+    organization "Netconf Central";
+
+    contact
+      "Federico Cimorelli <cimorelli@dis.uniroma1.it>";
+
+    description
+      "YANG version of the ODL ROLE MANAGER.";
+
+    revision "2015-09-01" {
+      description
+        "OpenDaylight Role Manager module.";
+    }
+
+
+    container rolemanager {
+      presence
+        "Indicates the role manager service is available";
+      description
+        "Top-level container for all role manager database objects.";
+
+      leaf rolemanagerStatus {
+        type enumeration {
+          enum "up" {
+            value 1;
+            description
+              "The role manager knob position is up.
+                      No rm is being made now.";
+          }
+          enum "down" {
+            value 2;
+            description
+              "The role manager state is down.";
+          }
+        }
+        config false;
+        mandatory true;
+        description
+          "This variable indicates the current state of
+               the role manager.";
+      }
+
+      leaf rolemanagerInputParamOne {
+        type uint32;
+        config true;
+        default 100;
+        description
+          "Parameter rolemanagerInputParamOne's description";
+      }
+    }
+
+
+    rpc start-rolemanager{
+        description "Start rolemanager algorithm";
+        input {
+            leaf rolemanagerInputParamOne{
+                type uint32;
+                description "Role Manager first input parameter";
+                default 100;
+                }
+            }
+        output {
+            leaf response-code {
+                type uint32;
+                description "Response code, 0 ok, <0 ko";
+                default 0;
+                }
+            leaf response-message{
+                type string;
+                description "Response message";
+                default "ND";
+            }
+        }
+    }
+
+
+    rpc stop-rolemanager{
+        description "Stop role manager algorithm";
+        output {
+            leaf response-code {
+                type uint32;
+                description "Response code, 0 ok, <0 ko";
+                default 0;
+                }
+            }
+        }
+
+
+    rpc get-rolemanager-status{
+        description "Return the status of the rolemanager";
+        output {
+            leaf response-code {
+                type uint32;
+                description "Response code, 1 UP, 0 DOWN, <0 ERROR";
+                default 0;
+                }
+            }
+        }
+
+
+    rpc set-switch-role{
+        description "Sets the role on the switch ids in input";
+        input {
+            leaf ofp-role{
+                type string;
+                description "The role to be triggered, choice in [NOCHANGE, BECOMEMASTER, BECOMESLAVE, BECOMEEQUAL]";
+                default "NOCHANGE";
+                }
+            leaf-list switch-ids{
+                type string;
+                description "The switches of interest";
+                min-elements 1;
+            }
+        }
+        output {
+            leaf response-code {
+                type uint32;
+                description "Response code, 0 ok, <0 ko";
+                default 0;
+                }
+            leaf response-message{
+                type string;
+                description "Response message";
+                default "ND";
+            }
+        }
+    }
+
+
+    rpc get-switch-role{
+        description "Returns the role on the switch ids in input";
+        input {
+            leaf-list switch-ids{
+                type string;
+                description "The switches of interest";
+                min-elements 1;
+            }
+        }
+        output {
+            leaf response-code {
+                type uint32;
+                description "Response code, 0 ok, <0 ko";
+                default 0;
+                }
+            leaf-list response-message{
+                type string;
+                description "Response message in 'dpID:OFPCRROLE' format";
+            }
+        }
+    }
+
+    grouping msgCount{
+        leaf lastCounterFirstPacketTs{
+            type uint64;
+            default 0;
+            }
+        leaf lastCounterCount{
+            type uint64;
+            default 0;
+            }
+        leaf counterFirstPacketTs{
+            type uint64;
+            default 0;
+            }
+        leaf counterCount{
+            type uint64;
+            default 0;
+            }
+        }
+
+
+    rpc get-switch-stats{
+        description "Returns the stats on the switch ids in input";
+        input {
+            leaf-list switch-ids{
+                type string;
+                description "The switches of interest";
+                min-elements 1;
+            }
+        }
+        output {
+            leaf response-code {
+                type uint32;
+                description "Response code, 0 ok, <0 ko";
+                default 0;
+                }
+            leaf-list response-message{
+                type string;
+                description "Response message in 'dpID:countSend:countReceived:ts' format";
+            }
+        }
+    }
+
+  }

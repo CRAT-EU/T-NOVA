@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>org.opendaylight.rolemanager</groupId>
+        <artifactId>rolemanager-parent</artifactId>
+        <version>0.0.4-SNAPSHOT</version>
+        <relativePath>parent</relativePath>
+    </parent>
+
+    <artifactId>rolemanager</artifactId>
+    <description>Role Manager Archetype Top Level POM</description>
+    <packaging>pom</packaging>
+    <name>${project.artifactId}</name>
+
+    <prerequisites>
+        <maven>3.+</maven>
+    </prerequisites>
+
+    <modules>
+        <module>parent</module>
+        <module>artifacts</module>
+        <module>rolemanager-impl</module>
+        <module>rolemanager-api</module>
+        <module>features</module>
+        <module>distribution-karaf</module>
+    </modules>
+</project>

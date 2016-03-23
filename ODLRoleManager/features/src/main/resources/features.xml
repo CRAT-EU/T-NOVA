@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<features name="odl-rolemanager-${project.version}" xmlns="http://karaf.apache.org/xmlns/features/v1.2.0"
+   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xsi:schemaLocation="http://karaf.apache.org/xmlns/features/v1.2.0 http://karaf.apache.org/xmlns/features/v1.2.0">
+
+    <repository>mvn:org.opendaylight.yangtools/features-yangtools/${yangtools.version}/xml/features</repository>
+    <repository>mvn:org.opendaylight.mdsal/features-mdsal/${mdsal.version}/xml/features</repository>
+    <repository>mvn:org.opendaylight.controller/features-mdsal/${controller.mdsal.version}/xml/features</repository>
+    <repository>mvn:org.opendaylight.controller/features-restconf/${controller.restconf.version}/xml/features</repository>
+    <repository>mvn:org.opendaylight.openflowplugin/features-openflowplugin/${feature.openflowplugin.version}/xml/features</repository>
+
+    <feature name='odl-rolemanager-api' version='${project.version}' description='OpenDaylight :: Role Manager :: API'>
+       <!-- <feature version='${yangtools.version}'>odl-yangtools-common</feature> -->
+        <feature version='${mdsal.version}'>odl-mdsal-binding-base</feature>
+        <feature version='${yangtools.version}'>odl-yangtools-common</feature>
+        <feature version='${mdsal.version}'>odl-mdsal-binding</feature>
+        <!-- <feature version='${yangtools.version}'>odl-yangtools-models</feature> -->
+        <feature version='${controller.restconf.version}'>odl-restconf</feature>
+        <bundle>mvn:org.opendaylight.rolemanager/rolemanager-api/${project.version}</bundle>
+    </feature>
+
+    <feature name='odl-rolemanager-impl' version='${project.version}' description='OpenDaylight :: Role Manager :: Impl'>
+        <feature version='${controller.mdsal.version}'>odl-mdsal-broker</feature>
+        <feature version='${controller.restconf.version}'>odl-restconf</feature>
+        <feature version="${feature.openflowplugin.version}">odl-openflowplugin-flow-services</feature>
+        <feature version="${feature.openflowplugin.version}">odl-openflowplugin-southbound</feature>
+        <feature version='${project.version}'>odl-rolemanager-api</feature>
+        <bundle>mvn:org.opendaylight.rolemanager/rolemanager-impl/${project.version}</bundle>
+        <configfile finalname="rolemanager-impl-config.xml">mvn:org.opendaylight.rolemanager/rolemanager-impl/${project.version}/xml/config</configfile>
+    </feature>
+
+</features>

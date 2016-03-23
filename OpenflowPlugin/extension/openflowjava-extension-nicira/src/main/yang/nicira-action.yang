@@ -1,0 +1,287 @@
+module nicira-action {
+    yang-version 1;
+
+    namespace "urn:opendaylight:openflowjava:nx:action";
+    prefix "nicira-action";
+
+    import openflow-action {prefix ofaction; revision-date "2015-02-03";}
+    import openflow-types {prefix oft;}
+    import yang-ext {prefix ext; revision-date "2013-07-09";}
+
+    description
+        "Nicira openflow extensions of action.";
+
+    revision "2014-04-21" {
+        description "Initial revision";
+    }
+
+    identity nxm-nx-reg-load {
+        base ofaction:experimenter-action-sub-type;
+    }
+    identity nxm-nx-reg-move {
+        base ofaction:experimenter-action-sub-type;
+    }
+    identity nxm-nx-output-reg {
+        base ofaction:experimenter-action-sub-type;
+    }
+    identity nxm-nx-resubmit {
+        base ofaction:experimenter-action-sub-type;
+    }
+    identity nxm-nx-multipath {
+        base ofaction:experimenter-action-sub-type;
+    }
+    identity nxm-nx-set-nsp {
+        base ofaction:experimenter-action-sub-type;
+    }
+    identity nxm-nx-set-nsi {
+        base ofaction:experimenter-action-sub-type;
+    }
+    identity nxm-nx-conntrack {
+        base ofaction:experimenter-action-sub-type;
+    }
+
+    grouping ofj-nx-action-reg-load-grouping {
+        container nx-action-reg-load {
+            leaf ofs_nbits {
+                type uint16;
+            }
+            leaf dst {
+                type uint32;
+            }
+            leaf value {
+                type uint64;
+            }
+            leaf experimenter-id {
+                type oft:experimenter-id;
+            }
+        }
+    }
+    grouping ofj-nx-action-reg-move-grouping {
+        container nx-action-reg-move {
+                leaf n_bits {
+                    type uint16;
+                }
+                leaf src_ofs {
+                    type uint16;
+                }
+                leaf dst_ofs {
+                    type uint16;
+                }
+                leaf src {
+                    type uint32;
+                }
+                leaf dst {
+                    type uint32;
+                }
+                leaf experimenter-id {
+                    type oft:experimenter-id;
+                }
+        }
+    }
+    grouping ofj-nx-action-output-reg-grouping {
+        container nx-action-output-reg {
+            leaf n_bits {
+                type uint16;
+            }
+            leaf src {
+                type uint32;
+            }
+            leaf max_len {
+                type uint16;
+            }
+            leaf experimenter-id {
+                type oft:experimenter-id;
+            }
+        }
+    }
+
+    grouping ofj-nx-action-resubmit-grouping {
+        container nx-action-resubmit {
+            leaf in-port {
+                type uint16;
+                default 0xfff8; // OFPP_INPORT
+            }
+            leaf table {
+                type uint8 {
+                    range "0 .. 255";
+                }
+                default 255; // Current Table
+            }
+            leaf experimenter-id {
+                type oft:experimenter-id;
+            }
+        }
+    }
+
+    typedef ofj-nx-hash-fields {
+        type enumeration {
+            enum NX_HASH_FIELDS_ETH_SRC {
+                value 0;
+                description "eth src address only";
+            }
+            enum NX_HASH_FIELDS_SYMMETRIC_L4 {
+                value 1;
+                description "L2 through L4 fields";
+            }
+        }
+    }
+
+    typedef ofj-nx-mp-algorithm {
+        type enumeration {
+            enum NX_MP_ALG_MODULO_N {
+                value 0;
+            }
+            enum NX_MP_ALG_HASH_THRESHOLD {
+                value 1;
+            }
+            enum NX_MP_ALG_HRW {
+                value 2;
+            }
+            enum NX_MP_ALG_ITER_HASH {
+                value 3;
+            }
+        }
+    }
+
+    grouping ofj-nx-action-multipath-grouping {
+        container nx-action-multipath {
+            leaf fields {
+                type ofj-nx-hash-fields;
+            }
+            leaf basis {
+                type uint16;
+                default 0x400;
+            }
+            leaf algorithm {
+                type ofj-nx-mp-algorithm;
+            }
+            leaf max-link {
+                type uint16;
+            }
+            leaf arg {
+                type uint32;
+            }
+            leaf ofs-nbits {
+                type uint16;
+            }
+            leaf dst {
+                type uint32;
+            }
+            leaf experimenter-id {
+                type oft:experimenter-id;
+            }
+        }
+    }
+
+    grouping ofj-nx-action-set-nsp-grouping {
+        container nx-action-set-nsp {
+            leaf nsp {
+                type uint32;
+            }
+            leaf experimenter-id {
+                type oft:experimenter-id;
+            }
+        }
+    }
+
+    grouping ofj-nx-action-set-nsi-grouping {
+        container nx-action-set-nsi {
+            leaf nsi {
+                type uint8;
+            }
+            leaf experimenter-id {
+                type oft:experimenter-id;
+            }
+        }
+    }
+
+    grouping ofj-nx-action-set-nshc-grouping {
+        leaf nshc {
+            type uint32;
+        }
+        leaf experimenter-id {
+            type oft:experimenter-id;
+        }
+    }
+
+    grouping ofj-nx-action-set-nshc-1-grouping {
+        container nx-action-set-nshc-1 {
+            uses ofj-nx-action-set-nshc-grouping;
+        }
+    }
+    grouping ofj-nx-action-set-nshc-2-grouping {
+        container nx-action-set-nshc-2 {
+            uses ofj-nx-action-set-nshc-grouping;
+        }
+    }
+    grouping ofj-nx-action-set-nshc-3-grouping {
+        container nx-action-set-nshc-3 {
+            uses ofj-nx-action-set-nshc-grouping;
+        }
+    }
+    grouping ofj-nx-action-set-nshc-4-grouping {
+        container nx-action-set-nshc-4 {
+            uses ofj-nx-action-set-nshc-grouping;
+        }
+    }
+
+    grouping ofj-nx-action-conntrack-grouping {
+        container nx-action-conntrack {
+            leaf flags {
+                type uint16;
+            }
+            leaf zone-src {
+                type uint32;
+            }
+            leaf conntrack-zone {
+                type uint16;
+            }
+            leaf recirc-table {
+                type uint8;
+            }
+            leaf experimenter-id {
+                type oft:experimenter-id;
+            }
+        }
+    }
+
+    augment "/ofaction:action-container/ofaction:action-choice" {
+        ext:augment-identifier "ofj-aug-nx-action";
+        case action-reg-load {
+            uses ofj-nx-action-reg-load-grouping;
+        }
+        case action-reg-move {
+            uses ofj-nx-action-reg-move-grouping;
+        }
+        case action-output-reg {
+            uses ofj-nx-action-output-reg-grouping;
+        }
+        case action-resubmit {
+            uses ofj-nx-action-resubmit-grouping;
+        }
+        case action-multipath {
+            uses ofj-nx-action-multipath-grouping;
+        }
+        case action-set-nsp {
+            uses ofj-nx-action-set-nsp-grouping;
+        }
+        case action-set-nsi {
+            uses ofj-nx-action-set-nsi-grouping;
+        }
+        case action-set-nshc-1 {
+            uses ofj-nx-action-set-nshc-1-grouping;
+        }
+        case action-set-nshc-2 {
+            uses ofj-nx-action-set-nshc-2-grouping;
+        }
+        case action-set-nshc-3 {
+            uses ofj-nx-action-set-nshc-3-grouping;
+        }
+        case action-set-nshc-4 {
+            uses ofj-nx-action-set-nshc-4-grouping;
+        }
+        case action-conntrack {
+            uses ofj-nx-action-conntrack-grouping;
+        }
+    }
+}

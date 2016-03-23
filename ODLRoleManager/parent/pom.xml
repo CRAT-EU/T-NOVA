@@ -1,0 +1,382 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>org.opendaylight.odlparent</groupId>
+        <artifactId>odlparent</artifactId>
+        <version>1.6.0-SNAPSHOT</version>
+        <relativePath></relativePath>
+    </parent>
+
+    <groupId>org.opendaylight.rolemanager</groupId>
+    <artifactId>rolemanager-parent</artifactId>
+    <name>RoleManager parent</name>
+    <version>0.0.4-SNAPSHOT</version>
+    <packaging>pom</packaging>
+
+    <prerequisites>
+        <maven>3.1.1</maven>
+    </prerequisites>
+
+    <properties>
+        <nexusproxy>http://nexus.opendaylight.org/content</nexusproxy>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.info.reports.version>2.7</maven.info.reports.version>
+        <project.version>0.0.4-SNAPSHOT</project.version>
+        <karaf.branding.version>1.2.0-SNAPSHOT</karaf.branding.version>
+        <branding.version>1.2.0-SNAPSHOT</branding.version>
+        <karaf-empty.version>1.6.0-SNAPSHOT</karaf-empty.version>
+        <karaf.empty.version>1.6.0-SNAPSHOT</karaf.empty.version>
+        <karaf.resources.version>1.6.0-SNAPSHOT</karaf.resources.version>
+        <feature.base.version>1.6.0-SNAPSHOT</feature.base.version>
+        <feature.empty.version>1.6.0-SNAPSHOT</feature.empty.version>
+        <controller.mdsal.version>1.3.0-SNAPSHOT</controller.mdsal.version>
+        <mdsal.version>2.0.0-SNAPSHOT</mdsal.version>
+        <controller.model.version>1.3.0-SNAPSHOT</controller.model.version>
+        <controller.config.version>0.4.0-SNAPSHOT</controller.config.version>
+        <controller.restconf.version>1.3.0-SNAPSHOT</controller.restconf.version>
+        <feature.restconf.version>1.3.0-SNAPSHOT</feature.restconf.version>
+        <yangtools.version>0.8.0-SNAPSHOT</yangtools.version>
+        <yang.jmx.version>0.4.0-SNAPSHOT</yang.jmx.version>
+        <openflowplugin.version>0.2.0-SNAPSHOT</openflowplugin.version>
+        <feature.openflowplugin.version>0.2.0-SNAPSHOT</feature.openflowplugin.version>
+        <build.plugins.plugin.version>1.9.1</build.plugins.plugin.version>
+        <feature.netconf.connector.version>1.3.0-SNAPSHOT</feature.netconf.connector.version>
+        <l2switch.version>0.3.0-SNAPSHOT</l2switch.version>
+        <feature.test.version>0.8.0-SNAPSHOT</feature.test.version>
+        <sonar-jacoco-listeners.version>2.4</sonar-jacoco-listeners.version>
+        <salGeneratorPath>target/generated-sources/sal</salGeneratorPath>
+        <jmxGeneratorPath>target/generated-sources/config</jmxGeneratorPath>
+        <surefire.version>2.16</surefire.version>
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.opendaylight.rolemanager</groupId>
+                <artifactId>rolemanager-artifacts</artifactId>
+                <version>${project.version}</version>
+                <scope>import</scope>
+                <type>pom</type>
+            </dependency>
+            <dependency>
+                <groupId>org.opendaylight.yangtools</groupId>
+                <artifactId>yangtools-artifacts</artifactId>
+                <version>${yangtools.version}</version>
+                <scope>import</scope>
+                <type>pom</type>
+            </dependency>
+            <dependency>
+                <groupId>org.opendaylight.controller</groupId>
+                <artifactId>config-artifacts</artifactId>
+                <version>${controller.config.version}</version>
+                <scope>import</scope>
+                <type>pom</type>
+            </dependency>
+            <dependency>
+                <groupId>org.opendaylight.controller</groupId>
+                <artifactId>mdsal-artifacts</artifactId>
+                <version>${controller.mdsal.version}</version>
+                <scope>import</scope>
+                <type>pom</type>
+            </dependency>
+            <dependency>
+                <groupId>org.codehaus.sonar-plugins.java</groupId>
+                <artifactId>sonar-jacoco-listeners</artifactId>
+                <version>${sonar-jacoco-listeners.version}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.opendaylight.openflowplugin</groupId>
+                <artifactId>openflowplugin-artifacts</artifactId>
+                <version>${openflowplugin.version}</version>
+                <scope>import</scope>
+                <type>pom</type>
+            </dependency>
+            <dependency>
+                <groupId>org.opendaylight.yangtools</groupId>
+                <artifactId>yang-binding</artifactId>
+                <version>${yangtools.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <dependencies>
+        <dependency>
+             <groupId>org.codehaus.sonar-plugins.java</groupId>
+             <artifactId>sonar-jacoco-listeners</artifactId>
+             <version>${sonar-jacoco-listeners.version}</version>
+             <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+
+
+  <reporting>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-project-info-reports-plugin</artifactId>
+                <version>${maven.info.reports.version}</version>
+                <reportSets>
+                    <reportSet>
+                        <reports>
+                            <report>dependency-info</report>
+                            <report>license</report>
+                        </reports>
+                    </reportSet>
+                </reportSets>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <reportSets>
+                    <reportSet>
+                        <id>non-aggregate</id>
+                        <reports>
+                            <report>javadoc</report>
+                        </reports>
+                    </reportSet>
+                </reportSets>
+            </plugin>
+        </plugins>
+    </reporting>
+    <!-- End unknown section -->
+
+    <!-- INTERNAL TODO: This should be part of our jenkins system. This tells
+        the build system where to put the artifacts in Nexus. Keith check with Andy
+        and Thanh if we can remove from the POM tag distributionManagement. -->
+    <distributionManagement>
+        <repository>
+            <id>opendaylight-release</id>
+            <url>http://nexus.opendaylight.org/content/repositories/opendaylight.release/</url>
+        </repository>
+        <snapshotRepository>
+            <id>opendaylight-snapshot</id>
+            <url>http://nexus.opendaylight.org/content/repositories/opendaylight.snapshot/</url>
+        </snapshotRepository>
+        <site>
+            <id>website</id>
+            <url>${sitedeploy}</url>
+        </site>
+    </distributionManagement>
+
+    <!-- Build information as well as verions. INTERNAL TODO: this should probably
+        live in odlparent but the odlparent project hasn't made enough progress. -->
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>${java.version.source}</source>
+                    <target>${java.version.target}</target>
+                    <testSource>${java.version.source}</testSource>
+                    <testTarget>${java.version.target}</testTarget>
+                    <showDeprecation>true</showDeprecation>
+                    <showWarnings>true</showWarnings>
+                    <optimize>true</optimize>
+                </configuration>
+            </plugin>
+            <plugin> <!-- INTERNAL TODO: Find the Surefire wiki page and reference here. This
+                    is where Maven Unit tests are loaded. -->
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <configuration>
+                    <redirectTestOutputToFile>true</redirectTestOutputToFile>
+                    <runOrder>alphabetical</runOrder> <!-- This can be problematic if tests misbehave. -->
+                    <threadCount>1</threadCount>
+
+                    <!-- Specific to generate mapping between tests and covered code in
+                        SONAR -->
+                    <properties>
+                        <property>
+                            <name>listener</name>
+                            <value>org.sonar.java.jacoco.JUnitListener</value>
+                        </property>
+                    </properties>
+
+                </configuration>
+            </plugin>
+
+            <!-- Deals with how MVN deals with dependencies, and tuning what it should
+                WARN about The two "true" items says "fail on WARNING but only in the Compile
+                phase -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <configuration>
+                    <failOnWarning>true</failOnWarning>
+                    <ignoreNonCompile>true</ignoreNonCompile>
+                </configuration>
+            </plugin>
+
+            <!-- INTERNAL TODO: Not required, its to ensure that generated-sources
+                show up as source folders in Eclipse. -->
+            <plugin>
+                <!-- Let eclipse know about the generated sources -->
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>build-helper-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>add-source</goal>
+                        </goals>
+                        <!-- INTERNAL TODO: This appears to be hardcoded but what if YANGTOOLs
+                            changes its behaviour of where stuff is generated???? -->
+                        <configuration>
+                            <sources>
+                                <source>${salGeneratorPath}</source>
+                                <source>${jmxGeneratorPath}</source>
+                            </sources>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <!-- Enforces whitespace checking etc. Can enforce project specific checkstyle -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-checkstyle-plugin</artifactId>
+                <configuration>
+                    <failOnViolation>true</failOnViolation>
+                    <!-- The config XML below comes from the YANGTOOLS project. -->
+                    <configLocation>checkstyle-logging.xml</configLocation>
+                    <consoleOutput>true</consoleOutput>
+                    <includeTestSourceDirectory>true</includeTestSourceDirectory>
+                    <sourceDirectory>${project.basedir}</sourceDirectory>
+                    <includes>**\/*.java,**\/*.xml,**\/*.ini,**\/*.sh,**\/*.bat,**\/*.yang</includes>
+                    <excludes>**\/target\/,**\/bin\/,**\/target-ide\/,**\/src/main/yang-gen-config\/,**\/src/main/yang-gen-sal\/,**\/.m2repo\/</excludes>
+                </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.opendaylight.yangtools</groupId>
+                        <artifactId>checkstyle-logging</artifactId>
+                        <version>${yangtools.version}</version>
+                    </dependency>
+                </dependencies>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <!-- Default bindings for unit tests and integration tests. INTERNAL TODO:
+                Validate against SONAR wiki HOW-TO. This should be in odlparent. -->
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>prepare-ut-agent</id>
+                        <phase>process-test-classes</phase>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                        </goals>
+                        <configuration>
+                            <destFile>${sonar.jacoco.reportPath}</destFile>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>prepare-it-agent</id>
+                        <phase>pre-integration-test</phase>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                        </goals>
+                        <configuration>
+                            <destFile>${sonar.jacoco.itReportPath}</destFile>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+        <!-- Specifies versions, except for Eclipse mapping -->
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>build-helper-maven-plugin</artifactId>
+                    <version>1.8</version>
+                </plugin>
+
+                <!--This plugin's configuration is used to store Eclipse m2e settings
+                    only. It has no influence on the Maven build itself. This makes eclipse usage
+                    "nicer" OPTIONAL TODO: include if you want your eclipse nicer INTERNAL TODO:
+                    Is this historical? Have things advanced that we no longer need this? -->
+                <plugin>
+                    <groupId>org.eclipse.m2e</groupId>
+                    <artifactId>lifecycle-mapping</artifactId>
+                    <version>1.0.0</version>
+                    <configuration>
+                        <lifecycleMappingMetadata>
+                            <pluginExecutions>
+                                <pluginExecution>
+                                    <pluginExecutionFilter>
+                                        <groupId>pl.project13.maven</groupId>
+                                        <artifactId>git-commit-id-plugin</artifactId>
+                                        <versionRange>[2.1.4,)</versionRange>
+                                        <goals>
+                                            <goal>revision</goal>
+                                        </goals>
+                                    </pluginExecutionFilter>
+                                    <action>
+                                        <ignore />
+                                    </action>
+                                </pluginExecution>
+                                <pluginExecution>
+                                    <pluginExecutionFilter>
+                                        <groupId>org.opendaylight.yangtools</groupId>
+                                        <artifactId>yang-maven-plugin</artifactId>
+                                        <versionRange>[0.5,)</versionRange>
+                                        <goals>
+                                            <goal>generate-sources</goal>
+                                        </goals>
+                                    </pluginExecutionFilter>
+                                    <action>
+                                        <ignore />
+                                    </action>
+                                </pluginExecution>
+                                <pluginExecution>
+                                    <pluginExecutionFilter>
+                                        <groupId>org.jacoco</groupId>
+                                        <artifactId>jacoco-maven-plugin</artifactId>
+                                        <versionRange>[0.6,)</versionRange>
+                                        <goals>
+                                            <goal>prepare-agent</goal>
+                                        </goals>
+                                    </pluginExecutionFilter>
+                                    <action>
+                                        <ignore />
+                                    </action>
+                                </pluginExecution>
+                            </pluginExecutions>
+                        </lifecycleMappingMetadata>
+                    </configuration>
+                </plugin>
+
+                <!-- Our YANG->DTO generation plugin
+                INTERNAL TODO: Eventually (Jan15)
+                    this will be pulled in from a YANGTOOLS POM Using simple version from controller
+                    ... *** alagalah -->
+                <plugin>
+                    <groupId>org.opendaylight.yangtools</groupId>
+                    <artifactId>yang-maven-plugin</artifactId>
+                    <version>${yangtools.version}</version>
+                    <dependencies>
+                        <dependency>
+                            <groupId>org.opendaylight.mdsal</groupId>
+                            <artifactId>maven-sal-api-gen-plugin</artifactId>
+                            <version>${yangtools.version}</version>
+                            <type>jar</type>
+                        </dependency>
+                    </dependencies>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
+</project>

@@ -1,0 +1,48 @@
+module opendaylight-nodes-statistics {
+    namespace "urn:opendaylight:nodes:statistics";
+    prefix nodesstat;
+
+    description "Openflow OF nodes statistics structures.";
+
+    contact
+        "Federico Cimorelli
+        Email: cimorellifederico@gmail.com";
+
+    revision "2016-01-14" {
+        description "Initial revision of nodes statistics model";
+    }
+    
+    grouping msgCount{
+        leaf lastCounterFirstPacketTs{
+            type uint64;
+            default 0;
+            }
+        leaf lastCounterCount{
+            type uint64;
+            default 0;
+            }
+        leaf counterFirstPacketTs{
+            type uint64;
+            default 0;
+            }
+        leaf counterCount{
+            type uint64;
+            default 0;
+            }
+        }
+    
+    container ofStatistics{
+        list ofNode{
+            leaf nodeId{
+                type string;
+                }
+            list counter{
+                leaf msgType{
+                    type string;
+                    }
+                uses msgCount;
+                }
+            }
+        }
+   
+}

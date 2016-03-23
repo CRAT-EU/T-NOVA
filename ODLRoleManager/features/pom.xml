@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ Necessary TODO: Put your copyright here.
+ This program and the accompanying materials are made available under the
+ terms of the Eclipse Public License v1.0 which accompanies this distribution,
+ and is available at http://www.eclipse.org/legal/epl-v10.html
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+   <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.opendaylight.rolemanager</groupId>
+        <artifactId>rolemanager-parent</artifactId>
+        <relativePath>../parent</relativePath>
+        <version>0.0.4-SNAPSHOT</version>
+    </parent>
+
+
+    <artifactId>features-rolemanager</artifactId>
+    <name>${project.artifactId}</name>
+
+    <!-- Optional TODO: Uncomment version if you are not using a parent pom.xml
+    <version>0.0.1</version>
+    -->
+   <packaging>jar</packaging>
+
+   <properties>
+      <features.file>features.xml</features.file>
+   </properties>
+
+   <dependencies>
+            <dependency>
+                <groupId>org.opendaylight.yangtools</groupId>
+                <artifactId>features-yangtools</artifactId>
+                <classifier>features</classifier>
+                <type>xml</type>
+            </dependency>
+            <dependency>
+                <groupId>org.opendaylight.controller</groupId>
+                <artifactId>features-mdsal</artifactId>
+                <classifier>features</classifier>
+                <version>${controller.mdsal.version}</version>
+                <type>xml</type>
+            </dependency>
+            <dependency>
+                <groupId>org.opendaylight.controller</groupId>
+                <artifactId>features-restconf</artifactId>
+                <version>${feature.restconf.version}</version>
+                <classifier>features</classifier>
+                <type>xml</type>
+            </dependency>
+            <dependency>
+                <groupId>org.opendaylight.openflowplugin</groupId>
+                <artifactId>features-openflowplugin</artifactId>
+                <version>${feature.openflowplugin.version}</version>
+                <classifier>features</classifier>
+                <type>xml</type>
+            </dependency>
+            <dependency>
+                <groupId>org.opendaylight.rolemanager</groupId>
+                <artifactId>rolemanager-api</artifactId>
+            </dependency>
+            <dependency>
+                <groupId>org.opendaylight.rolemanager</groupId>
+                <artifactId>rolemanager-impl</artifactId>
+            </dependency>
+            <dependency>
+                <groupId>org.opendaylight.odlparent</groupId>
+                <artifactId>features-test</artifactId>
+                <version>1.6.0-SNAPSHOT</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.opendaylight.controller</groupId>
+                <artifactId>opendaylight-karaf-empty</artifactId>
+                <version>${karaf.empty.version}</version>
+                <type>zip</type>
+            </dependency>
+
+           <!-- <dependency>
+                <groupId>org.opendaylight.controller</groupId>
+                <artifactId>config-artifacts</artifactId>
+                <version>${controller.config.version}</version>
+                <scope>import</scope>
+                <type>pom</type>
+            </dependency>-->
+
+            <!-- <dependency> -->
+            <!-- <groupId>org.opendaylight.openflowplugin</groupId> -->
+            <!-- <artifactId>features-openflowplugin</artifactId> -->
+            <!-- <classifier>features</classifier> -->
+            <!-- <type>xml</type> -->
+            <!-- </dependency> -->
+            <!-- <dependency> -->
+            <!-- <groupId>org.opendaylight.controller</groupId> -->
+            <!-- <artifactId>features-mdsal</artifactId> -->
+            <!-- <classifier>features</classifier> -->
+            <!-- <type>xml</type> -->
+            <!-- </dependency> -->
+    </dependencies>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.opendaylight.openflowplugin</groupId>
+                <artifactId>openflowplugin-artifacts</artifactId>
+                <version>${feature.openflowplugin.version}</version>
+                <scope>import</scope>
+                <type>pom</type>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+   <build>
+      <resources>
+         <resource>
+            <directory>src/main/resources</directory>
+            <filtering>true</filtering>
+         </resource>
+      </resources>
+      <plugins>
+         <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-resources-plugin</artifactId>
+            <executions>
+               <execution>
+                  <id>filter</id>
+                  <phase>generate-resources</phase>
+                  <goals>
+                     <goal>resources</goal>
+                  </goals>
+               </execution>
+            </executions>
+         </plugin>
+         <plugin>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>build-helper-maven-plugin</artifactId>
+            <executions>
+               <execution>
+                  <id>attach-artifacts</id>
+                  <phase>package</phase>
+                  <goals>
+                     <goal>attach-artifact</goal>
+                  </goals>
+                  <configuration>
+                     <artifacts>
+                        <artifact>
+                           <file>${project.build.directory}/classes/${features.file}</file>
+                           <type>xml</type>
+                           <classifier>features</classifier>
+                        </artifact>
+                     </artifacts>
+                  </configuration>
+               </execution>
+            </executions>
+         </plugin>
+         <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-surefire-plugin</artifactId>
+            <version>${surefire.version}</version>
+            <configuration>
+              <systemPropertyVariables>
+                <karaf.distro.groupId>org.opendaylight.controller</karaf.distro.groupId>
+                <karaf.distro.artifactId>opendaylight-karaf-empty</karaf.distro.artifactId>
+                <karaf.distro.version>${karaf.empty.version}</karaf.distro.version>
+              </systemPropertyVariables>
+              <dependenciesToScan>
+               <dependency>org.opendaylight.odlparent:features-test</dependency>
+              </dependenciesToScan>
+            </configuration>
+          </plugin>
+      </plugins>
+   </build>
+</project>
