@@ -8,7 +8,7 @@ Implementation of a Load Balancer in charge of balancing the control traffic bet
 
 This module works by exploiting the Controller Role messages introduced by Openflow v1.3 ([link](https://www.opennetworking.org/images/stories/downloads/sdn-resources/onf-specifications/openflow/openflow-spec-v1.3.0.pdf)) by which every OF1.3 switch connecting to multiple controllers can accept/send OF packets only from/to the MASTER (or EQUAL) controller(s).
 
-The goal is to find the best switch-to-controller mapping in order to equally distribute the workload carried by each controller of the cluster. The Load Balancer monitors both the controllers machine resources and the OpenFlow control traffic on each controller Then, it computes and install a new mapping by dynamically changing the controller roles for each switch.
+The goal is to find the best switch-to-controller mapping in order to equally distribute the workload carried by each controller of the cluster. The Load Balancer monitors both the controllers machine resources and the OpenFlow control traffic on each controller. Then, it computes and applies the new mapping by dynamically changing the controller roles for each switch.
 
 The following ODL features have been extended:
   * OpenFlow Plugin
