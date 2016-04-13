@@ -8,7 +8,7 @@ Load Balancer for the SDN Control traffic based on the OpenDaylight Beryllium re
 
 Implementation of a Load Balancer in charge of balancing the control traffic between the network elements (i.e. Openflow switches) and a cluster of SDN controllers (i.e. OpenDaylight cluster).
 
-This module works by exploiting the Controller Role messages introduced by Openflow v1.3 ([link](https://www.opennetworking.org/images/stories/downloads/sdn-resources/onf-specifications/openflow/openflow-spec-v1.3.0.pdf)) whereby Openflow switch connecting to multiple controllers can accept/send OF packets only from/to the MASTER (or EQUAL) controller(s).
+This module works by exploiting the Controller Role messages introduced by Openflow v1.3 ([link](https://www.opennetworking.org/images/stories/downloads/sdn-resources/onf-specifications/openflow/openflow-spec-v1.3.0.pdf)). In OF1.3, switches connecting to multiple controllers can accept/send OF packets only from/to the MASTER (or EQUAL) controller(s).
 
 The goal is to find the best switch-to-controller mapping in order to equally distribute the workload carried by each controller of the cluster. The Load Balancer monitors both the controllers machine resources and the OpenFlow control traffic on each controller. Then, it computes and applies the new mapping by dynamically changing the controller roles for each switch.
 
