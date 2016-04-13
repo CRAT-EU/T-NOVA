@@ -12,12 +12,12 @@ This module works by exploiting the Controller Role messages introduced by Openf
 
 The goal is to find the best switch-to-controller mapping in order to equally distribute the workload carried by each controller of the cluster. The Load Balancer monitors both the controllers machine resources and the OpenFlow control traffic on each controller. Then, it computes and applies the new mapping by dynamically changing the controller roles for each switch.
 
-The following ODL features have been extended:
+To this aim, the following ODL features have been extended:
   * OpenFlow Plugin
   * Forwarding rule manager
   * Statistics manager
 
-A new feature, namely the Role Manager, has been introduced with the following modules
+In addition, a new feature, namely the Role Manager, has been introduced with the following modules
   * odl-rolemanager-api 
   * odl-rolemanager-impl
 
