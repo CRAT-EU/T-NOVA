@@ -35,7 +35,7 @@ Pull the repository with the following command: `git clone https://github.com/CR
 
 ## Build the code
 #### OpenFlow Plugin (extended)
-First of all, build the extended OpenFlow Plugin that will be included in the next OpenDaylight distibution archive.
+First of all, build the extended OpenFlow Plugin that will be included in a custom OpenDaylight distibution archive.
 From the `T-NOVA/OpenflowPlugin/` repo's directory, run the following command: 
 
 ```sh
