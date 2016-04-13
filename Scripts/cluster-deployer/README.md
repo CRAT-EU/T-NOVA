@@ -3,34 +3,30 @@
 Deploy a cluster of OpenDaylight controllers
 
 ### Requirements
-  * 3 Ubuntu 14.04 machines (VM or physical) accessible via SSH (user:odl/ password:odl)
-
-Make sure Python 2.7 is installed on your host
-
-  ```sh
+ * Python 2.7, pip and paramiko are installed on the local host
+ 
+ ```sh
   sudo apt-get install python2.7
-  ```
-  
-Also, install pip and paramiko
-
-  ```sh
   sudo apt-get install python-pip
   sudo apt-get install python-paramiko 
-  ```
+ ```
+ * 3 Ubuntu 14.04 remote machines (VM or physical) accessible via SSH (user:odl/ password:odl)
 
-Then, run the command below where the Integration repo resides
+### Requirements
+
+Execute the command below from the ODL integration repo folder
 
   ```sh
   python deploy.py --clean --distribution=distribution-karaf-0.0.4-SNAPSHOT.zip --rootdir=/home/odl --hosts=192.168.1.2,192.168.1.3,192.168.1.1 --user=odl --password=odl --template=lb-test
   ```
 
 where:
+* distribution : the ODL distribution to be deployed
 * hosts : comma separated list of IP addresses of the machines in charge of hosting each ODL controller
 * user : SSH username for the remote host(s)
 * password : SSH password for the remote host(s)
 
-
-The Controller clusters will be deployed in /home/odl/deploy/current/odl/ folder in the respective remote hosts. To check the features that are installed, simply access via SSH to the machine and start the controller in the following way:
+The Controller instances will be installed in /home/odl/deploy/current/odl/ folder of the respective remote hosts. To check the features that are installed, simply access via SSH to the machine and start the controller in the following way:
 
   ```sh
   ./bin/client -u karaf
