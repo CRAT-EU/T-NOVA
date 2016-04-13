@@ -30,8 +30,11 @@ The Load Balancer has been developed as standalone Java application in charge of
 
 Please refer to the official ODL documentation [here](https://wiki.opendaylight.org/view/GettingStarted:Development_Environment_Setup) for more information on how to setup the environment.
 
-## Getting the code
-Pull the repository with the following command: `git clone https://github.com/CRAT-EU/T-NOVA.git`
+## Download the code
+Type the following command: 
+```sh
+git clone https://github.com/CRAT-EU/T-NOVA.git`
+```
 
 ## Build the code
 #### OpenFlow Plugin (extended)
