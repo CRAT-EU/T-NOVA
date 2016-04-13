@@ -38,8 +38,9 @@ git clone https://github.com/CRAT-EU/T-NOVA.git`
 
 ## Build the code
 #### OpenFlow Plugin (extended)
-First of all, build the extended OpenFlow Plugin that will be included in a custom OpenDaylight distibution archive.
-From the `T-NOVA/OpenflowPlugin/` repo's directory, run the following command: 
+First of all, you have to build the extended OpenFlow Plugin that will be included in a custom OpenDaylight distibution archive.
+
+From the `T-NOVA/OpenflowPlugin/` repo's directory, type the following command: 
 
 ```sh
 mvn clean install -DskipTests
