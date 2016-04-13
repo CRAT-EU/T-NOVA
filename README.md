@@ -26,7 +26,7 @@ The Load Balancer has been developed as standalone Java application in charge of
   * Maven 3.1.1 or later
   * Edit your ~/.m2/settings.xml according to this [page](https://wiki.opendaylight.org/view/GettingStarted:Development_Environment_Setup)
 
-Refer [here](https://wiki.opendaylight.org/view/GettingStarted:Development_Environment_Setup) for more information about how to setup your development environment.
+Refer to the official ODL documentation [here](https://wiki.opendaylight.org/view/GettingStarted:Development_Environment_Setup) for more information on how to setup the development environment.
 
 ## Getting the code
 Pull the repository with the following command: `git clone https://github.com/CRAT-EU/T-NOVA.git`
