@@ -1,17 +1,24 @@
 # T-NOVA SDN Control Plane Load Balancer
 
-This is the T-NOVA SDN Control Plane Load Balancer repository. OpenDaylight Beryllium release has been chosen as the base SDN controller. Such software balances the control traffic exchanged between the network elements (i.e. Openflow switches) and a cluster of multiple  SDN controllers (i.e. OpenDaylight cluster).
-It works by exploiting the Controller Role messages introduced by Openflow v1.3 (MASTER, EQUAL, SLAVE). Every OF1.3 switch connects to all the cluster’s controllers, while accepting/sending OF packets only from/to the MASTER (or EQUAL) controller(s)
+Load Balancer for the SDN Control traffic based on the OpenDaylight Beryllium release, developed within the T-NOVA EU research project.
+
+## Description
+
+Implementation of a Load Balancer in charge of balancing the control traffic between the network elements (i.e. Openflow switches) and a cluster of SDN controllers (i.e. OpenDaylight cluster).
+
+This module works by exploiting the Controller Role messages introduced by Openflow v1.3 ([link](https://www.opennetworking.org/images/stories/downloads/sdn-resources/onf-specifications/openflow/openflow-spec-v1.3.0.pdf)) by which every OF1.3 switch connecting to multiple controllers can accept/send OF packets only from/to the MASTER (or EQUAL) controller(s)
+
 The goal is to find the best switch-to-controller mapping in order to equally distribute the workload carried by each controller of the cluster. The Load Balancer monitors both the controllers machine resources and the OpenFlow control traffic on each controller Then, it computes and install a new mapping by dynamically changing the controller roles for each switch.
 
-Different ODL features were extended:
+The following ODL features have been extended:
   * OpenFlow Plugin
   * Forwarding rule manager
   * Statistics manager
-New karaf module were developed:
-  * odl-rolemanager-api and odl-rolemanager-impl
 
-The Load Balancer software was developed as standalone Java application in charge of monitoring each controller's instances, monitor the control traffic and compute and apply the best switch-to-controller mapping.
+A new karaf module, the Role Manager, has been developed:
+  * odl-rolemanager-api odl-rolemanager-impl
+
+The Load Balancer has been developed as standalone Java application in charge of monitoring each controller's instances, monitor the control traffic and compute and apply the best switch-to-controller mapping.
 
 ## Requirements
   * Java 7 or 8 JDK;
@@ -24,12 +31,12 @@ Refer [here](https://wiki.opendaylight.org/view/GettingStarted:Development_Envir
 Pull the repository with the following command: `git clone https://github.com/CRAT-EU/T-NOVA.git`
 
 ## Build the code
-### Build the extended OpenFlow Plugin
+#### OpenFlow Plugin (extended)
 First of all, build the extended OpenFlow Plugin that will be included in the next OpenDaylight distibution archive.
 From the `T-NOVA/OpenflowPlugin/` repo's directory, give the following command: `mvn clean install -DskipTests`
-### Build the odl-rolemanafer-* features and the OpenDaylight distribution
+#### Role Manager (odl-rolemanafer-* features) and the OpenDaylight distribution
 From the `T-NOVA/ODLRoleManager/` repo's directory, give the following command: `mvn clean install`
-### Build the Load Balancer
+### Load Balancer Application
 From the `T-NOVA/CPLoadBalancer/` repo's directory, build the code with the following command: `mvn clean install`
 
 ## Deployment
