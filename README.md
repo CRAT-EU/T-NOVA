@@ -2,6 +2,8 @@
 
 Load Balancer for the SDN Control traffic based on the OpenDaylight Beryllium release, developed within the T-NOVA EU research project.
 
+![alt tag](https://dl.dropboxusercontent.com/u/4632161/ODL_LB.png)
+
 ## Description
 
 Implementation of a Load Balancer in charge of balancing the control traffic between the network elements (i.e. Openflow switches) and a cluster of SDN controllers (i.e. OpenDaylight cluster).
