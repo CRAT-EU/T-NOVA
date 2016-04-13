@@ -57,11 +57,11 @@ mvn clean install
 ## Deployment
 
 ### Deploy the OpenDaylight Cluster
-In order to deploy the ODL cluster, browse to the `T-NOVA/Scripts/cluster-deployer/` repo's folder. Copy there the karaf distribution zip file from the `T-NOVA/ODLRoleManager/distribution-karaf/target` folder. Then, follow the instructions here [here](https://github.com/CRAT-EU/T-NOVA/tree/master/Scripts/cluster-deployer).
+In order to deploy the ODL cluster, browse to the `T-NOVA/Scripts/cluster-deployer/` repo's folder. Copy there the karaf distribution zip file from the `T-NOVA/ODLRoleManager/distribution-karaf/target` folder. Then, follow the instructions [here](https://github.com/CRAT-EU/T-NOVA/tree/master/Scripts/cluster-deployer) to deploy the cluster.
 
 ### Run the Load Balancer Application
-In order to configure the load balancer application, change the cluster instances Ips and user:password into the `config.ini` file.
-To run the Load Balancer, execute the jar file build within the `T-NOVA/CPLoadBalancer/target` directory with the following command: 
+Before starting the Load Balancer application, configure the cluster instances IPs and SSH user:password in the `config.ini` file. 
+Then, execute the jar file build in the `T-NOVA/CPLoadBalancer/target` directory with the following command: 
 
 ```sh
 java -jar tnovacplb-1.0-SNAPSHOT`
