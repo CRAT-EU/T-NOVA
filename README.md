@@ -66,7 +66,7 @@ Then, follow the instructions [here](https://github.com/CRAT-EU/T-NOVA/tree/mast
 ### Run the Load Balancer Application
 Before starting the Load Balancer application, configure the cluster instances IPs and SSH user:password in the `config.ini` file. 
 
-Then, execute the jar file build in the `T-NOVA/CPLoadBalancer/target` directory with the following command: 
+Then, execute the jar file built in the `T-NOVA/CPLoadBalancer/target` directory with the following command: 
 
 ```sh
 java -jar tnovacplb-1.0-SNAPSHOT`
