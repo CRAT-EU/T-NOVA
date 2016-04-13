@@ -12,7 +12,7 @@ Deploy a cluster of OpenDaylight controllers
  ```
  * 3 Ubuntu 14.04 remote machines (VM or physical) accessible via SSH (user:odl/ password:odl)
 
-### Requirements
+### Run
 
 Execute the command below from the ODL integration repo folder
 
