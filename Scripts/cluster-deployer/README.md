@@ -12,6 +12,14 @@ Deploy a cluster of OpenDaylight controllers
  ```
  * 3 Ubuntu 14.04 remote machines (VM or physical) accessible via SSH (user:odl/ password:odl)
 
+### Configure
+
+Edit the deploy.py file in order to configure:
+* distribution : the ODL distribution zip file to be deployes on the different cluster's machine
+* hosts : comma separated list of IP addresses of the machines in charge of hosting each ODL controller
+* user : SSH username for the remote hosts (equal for all hosts)
+* password : SSH password for the remote hosts  (equal for all hosts)
+
 ### Run
 
 Execute the command below from the ODL integration repo folder
