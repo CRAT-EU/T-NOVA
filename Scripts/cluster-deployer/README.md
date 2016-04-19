@@ -14,7 +14,7 @@ Deploy a cluster of OpenDaylight controllers
 
 ### Configure
 
-Edit the deploy.py file in order to configure:
+Edit the deploy_cluster.sh file in order to configure:
 * distribution : the ODL distribution zip file to be deployes on the different cluster's machine
 * hosts : comma separated list of IP addresses of the machines in charge of hosting each ODL controller
 * user : SSH username for the remote hosts (equal for all hosts)
