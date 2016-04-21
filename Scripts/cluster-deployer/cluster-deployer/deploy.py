@@ -69,6 +69,10 @@ parser.add_argument("--user", default="root", help="the SSH username for the "
                                                    "remote host(s)")
 parser.add_argument("--password", default="Ecp123",
                     help="the SSH password for the remote host(s)")
+
+parser.add_argument("--keyfile", default=None,
+                    help="the path to a valid OpenSSH private key file for the remote host(s)")
+
 args = parser.parse_args()
 
 
@@ -120,7 +124,7 @@ def array_str(arr):
 class Deployer:
     def __init__(self, host, member_no, template, user, password, rootdir,
                  distribution, dir_name, hosts, ds_seed_nodes, rpc_seed_nodes,
-                 replicas, clean=False):
+                 replicas, clean=False, keyfile=None):
         self.host = host
         self.member_no = member_no
         self.template = template
@@ -134,10 +138,11 @@ class Deployer:
         self.ds_seed_nodes = ds_seed_nodes
         self.rpc_seed_nodes = rpc_seed_nodes
         self.replicas = replicas
+        self.keyfile = keyfile
 
         # Connect to the remote host and start doing operations
         self.remote = RemoteHost(self.host, self.user, self.password,
-                                 self.rootdir)
+                                 self.rootdir, keyfile=self.keyfile)
 
     def kill_controller(self):
         self.remote.copy_file("kill_controller.sh",  self.rootdir + "/")
@@ -278,7 +283,7 @@ def main():
                                   args.password, args.rootdir,
                                   args.distribution, dir_name, hosts,
                                   ds_seed_nodes, rpc_seed_nodes, replicas,
-                                  args.clean))
+                                  args.clean, args.keyfile))
 
     for x in range(0, len(hosts)):
         deployers[x].kill_controller()

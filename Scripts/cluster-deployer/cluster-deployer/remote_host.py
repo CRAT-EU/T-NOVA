@@ -10,14 +10,18 @@ import os
 
 
 class RemoteHost:
-    def __init__(self, host, user, password, rootdir):
+    def __init__(self, host, user, password, rootdir, keyfile=None):
         self.host = host
         self.user = user
         self.password = password
         self.rootdir = rootdir
+        self.keyfile = keyfile
         self.lib = SSHLibrary()
         self.lib.open_connection(self.host)
-        self.lib.login(username=self.user, password=self.password)
+        if self.keyfile is not None:
+            self.lib.login_with_public_key(username=self.user, keyfile=self.keyfile)
+        else:
+            self.lib.login(username=self.user, password=self.password)
 
     def __del__(self):
         self.lib.close_connection()
