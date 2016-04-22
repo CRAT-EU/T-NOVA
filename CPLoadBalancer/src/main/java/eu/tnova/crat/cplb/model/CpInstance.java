@@ -14,6 +14,7 @@ public class CpInstance {
     private String sshUser;
     private String sshPassword;
     private int sshPort;
+    private String sshKeypath;
     
     private MachineMonitoringMetrics MachineMonitoringMetricsCurrent;
     private EvictingQueue<MachineMonitoringMetrics> MachineMonitoringMetricsHistory;
@@ -27,11 +28,12 @@ public class CpInstance {
     
     
 
-    public CpInstance(String ipInstance, int sshPort, String sshUser, String sshPwd) {
+    public CpInstance(String ipInstance, int sshPort, String sshUser, String sshPwd, String sshKeypath) {
         this.ip = ipInstance;
         this.sshUser = sshUser;
         this.sshPassword = sshPwd;
         this.sshPort = sshPort;
+        this.sshKeypath = sshKeypath;
         
         MachineMonitoringMetricsHistory = EvictingQueue.create(Constants.monitoringDataHistoryLenght);
     //    monitoringTaskActive = false;
@@ -60,6 +62,9 @@ public class CpInstance {
         return sshPassword;
     }
     
+    public String getSSHKeypath() {
+        return sshPassword;
+    }
     
     public void setIp(String ipInstance) {
         this.ip = ipInstance;

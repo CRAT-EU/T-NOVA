@@ -143,8 +143,8 @@ public class CPLoadBalancer {
 	 */
 
 	public static void configInstances() {
-		TempData.LOGGER.info("Loading instances configurations...");
-
+		TempData.LOGGER.info("Loading instances configurations...");                
+                
 		FileReader fr = null;
 		try {
 			fr = new FileReader(Constants.configurationFileName);
@@ -170,20 +170,22 @@ public class CPLoadBalancer {
 			String ip = "0.0.0.0";
 			String user = "";
 			String pwd = "";
+                        String keypath = "";
 			int port = 22;
 			try {
 				cp_config = textReader.readLine();
 				String[] settings = cp_config.split(":");
-				if (settings.length == 4) {
-				ip = settings[0];
-				port = Integer.parseInt(settings[1]);
-				user = settings[2];
-				pwd = settings[3];
-				l += ip;
-				CpInstance cpi = new CpInstance(ip, port, user, pwd);
-				TempData.instanceAddresses.add(ip);
-				TempData.cpInstances.put(ip, cpi);
-				TempData.LOGGER.info(l);
+				if (settings.length == 5) {
+                                    ip = settings[0];
+                                    port = Integer.parseInt(settings[1]);
+                                    user = settings[2];
+                                    pwd = settings[3];
+                                    keypath = settings[4];
+                                    l += ip;
+                                    CpInstance cpi = new CpInstance(ip, port, user, pwd, keypath);
+                                    TempData.instanceAddresses.add(ip);
+                                    TempData.cpInstances.put(ip, cpi);
+                                    TempData.LOGGER.info(l);
 				}
 			} catch (IOException e) {
 				TempData.LOGGER.severe(e.getMessage());

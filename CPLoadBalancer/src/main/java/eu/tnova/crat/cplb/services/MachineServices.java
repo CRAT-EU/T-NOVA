@@ -21,11 +21,19 @@ public class MachineServices {
 		CpInstance cp = TempData.cpInstances.get(ip);
 		if (cp != null) {
 		
-		JSch jsch = new JSch();
+		JSch jsch = new JSch();     
+//                If keypath is not equal to "false" the path to the private key
+                TempData.LOGGER.info(cp.getSSHKeypath());
+                if (!cp.getSSHKeypath().equals("false")){
+                    jsch.addIdentity(cp.getSSHKeypath());
+                }                
 		Session session;
 		MachineMonitoringMetrics cpimm = new MachineMonitoringMetrics();
 			session = jsch.getSession(cp.getSSHUser(), cp.getIp(), cp.getSSHPort());
-			session.setPassword(cp.getSSHPassword());
+//                If keypath is equal to "false" use password                       
+                        if (cp.getSSHKeypath().equals("false")){
+                            session.setPassword(cp.getSSHPassword());
+                        }                           			
 			Properties config = new Properties();
 			config.put("StrictHostKeyChecking", "no");
 			session.setConfig(config);
