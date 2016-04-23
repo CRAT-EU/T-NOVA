@@ -27,7 +27,7 @@ public class DashBoardHandler extends HttpHandler {
 			        CpInstance cp = (CpInstance)it.next();
 			        JSONObject tmpjo= new JSONObject();
 			        MachineMonitoringMetrics mmm = cp.getMachineMonitoringDataCurrent();
-			        if (mmm != null)
+//			        if (mmm != null)
 			        //tmpjo.put("metrics", mmm.toJSON());
 			        tmpjo.put("instanceIp", cp.getIp());
 			        tmpjo.put("switches", OFSwitch.toJSONArray(cp.getSwitches()));
