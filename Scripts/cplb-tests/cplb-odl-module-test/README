@@ -1,0 +1,9 @@
+Dependency:
+  - pip install robotframework
+  - pip install -U robotframework-requests
+
+Setup:
+  - Edit Variables.py fields
+
+Usage:
+  - run: robot cplb-odl-sanity-check.robot
