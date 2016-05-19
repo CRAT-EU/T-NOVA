@@ -1,3 +1,6 @@
+Test case:
+  - check Load Balancer application is up and running
+
 Dependency:
   - pip install robotframework
   - pip install -U robotframework-requests
@@ -6,4 +9,4 @@ Setup:
   - Edit Variables.py fields
 
 Usage:
-  - run: robot cp-lb-sanity-check.robot
+  - run: robot cplb-app-test.robot

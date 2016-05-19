@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation     Test suite to verify Restconf is OK
+Documentation     Test suite to verify ODL's role manager features are ok
 Suite Teardown    Delete All Sessions
 Library           RequestsLibrary
 Variables         Variables.py

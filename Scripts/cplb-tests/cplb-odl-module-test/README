@@ -1,3 +1,6 @@
+Test case:
+  - check odl-rolemanager-* OpenDayligtht's features installed on each cluster node
+
 Dependency:
   - pip install robotframework
   - pip install -U robotframework-requests
@@ -6,4 +9,4 @@ Setup:
   - Edit Variables.py fields
 
 Usage:
-  - run: robot cplb-odl-sanity-check.robot
+  - run: robot cplb-odl-module-test.robot
