@@ -1,0 +1,337 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generated="20160520 12:14:05.553" generator="Robot 3.0 (Python 2.7.11+ on linux2)">
+<suite source="/home/federico/git/T-NOVA/Scripts/cplb-tests/cplb-role-sanity-test/cplb-role-sanity-test.robot" id="s1" name="Cplb-Role-Sanity-Test">
+<test id="s1-t1" name="Set role on cluster's controller1 instance and get it to check">
+<kw name="Create Session" library="RequestsLibrary">
+<doc>Create Session: create a HTTP session to a server</doc>
+<arguments>
+<arg>session</arg>
+<arg>http://${CONTROLLER1}:${RESTCONFPORT}</arg>
+<arg>auth=${AUTH}</arg>
+<arg>headers=${HEADERS_XML}</arg>
+</arguments>
+<msg timestamp="20160520 12:14:05.630" level="INFO">Creating Session using : alias=session, url=http://127.0.0.1:8181, headers={'Content-Type': 'application/json'},                     cookies=None, auth=&lt;requests.auth.HTTPBasicAuth object at 0x7fdd914a3550&gt;, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<status status="PASS" endtime="20160520 12:14:05.634" starttime="20160520 12:14:05.629"></status>
+</kw>
+<kw name="Post" library="RequestsLibrary">
+<doc>**Deprecated- See Post Request now**</doc>
+<arguments>
+<arg>session</arg>
+<arg>${SET_ROLE_REST_CONTEXT}</arg>
+<arg>data=${SET_ROLE_DATA}</arg>
+</arguments>
+<assign>
+<var>${resp}</var>
+</assign>
+<msg timestamp="20160520 12:14:05.635" level="WARN">Deprecation Warning: Use Post Request in the future</msg>
+<msg timestamp="20160520 12:14:05.638" level="INFO">Starting new HTTP connection (1): 127.0.0.1</msg>
+<msg timestamp="20160520 12:14:05.647" level="INFO">${resp} = &lt;Response [200]&gt;</msg>
+<status status="PASS" endtime="20160520 12:14:05.647" starttime="20160520 12:14:05.634"></status>
+</kw>
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${resp.content}</arg>
+</arguments>
+<msg timestamp="20160520 12:14:05.648" level="INFO">{"output":{"response-message":"Switch(es) role changed","response-code":0}}</msg>
+<status status="PASS" endtime="20160520 12:14:05.648" starttime="20160520 12:14:05.647"></status>
+</kw>
+<kw name="Should Be Equal As Strings" library="BuiltIn">
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<arguments>
+<arg>${resp.status_code}</arg>
+<arg>200</arg>
+</arguments>
+<msg timestamp="20160520 12:14:05.651" level="INFO">Argument types are:
+&lt;type 'int'&gt;
+&lt;type 'unicode'&gt;</msg>
+<status status="PASS" endtime="20160520 12:14:05.651" starttime="20160520 12:14:05.650"></status>
+</kw>
+<kw name="Create Session" library="RequestsLibrary">
+<doc>Create Session: create a HTTP session to a server</doc>
+<arguments>
+<arg>session</arg>
+<arg>http://${CONTROLLER1}:${RESTCONFPORT}</arg>
+<arg>auth=${AUTH}</arg>
+<arg>headers=${HEADERS_XML}</arg>
+</arguments>
+<msg timestamp="20160520 12:14:05.653" level="INFO">Creating Session using : alias=session, url=http://127.0.0.1:8181, headers={'Content-Type': 'application/json'},                     cookies=None, auth=&lt;requests.auth.HTTPBasicAuth object at 0x7fdd91453750&gt;, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<status status="PASS" endtime="20160520 12:14:05.654" starttime="20160520 12:14:05.651"></status>
+</kw>
+<kw name="Post" library="RequestsLibrary">
+<doc>**Deprecated- See Post Request now**</doc>
+<arguments>
+<arg>session</arg>
+<arg>${GET_ROLE_REST_CONTEXT}</arg>
+<arg>data=${GET_ROLE_DATA}</arg>
+</arguments>
+<assign>
+<var>${resp}</var>
+</assign>
+<msg timestamp="20160520 12:14:05.655" level="WARN">Deprecation Warning: Use Post Request in the future</msg>
+<msg timestamp="20160520 12:14:05.656" level="INFO">Starting new HTTP connection (1): 127.0.0.1</msg>
+<msg timestamp="20160520 12:14:07.182" level="INFO">${resp} = &lt;Response [200]&gt;</msg>
+<status status="PASS" endtime="20160520 12:14:07.182" starttime="20160520 12:14:05.654"></status>
+</kw>
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${resp.content}</arg>
+</arguments>
+<msg timestamp="20160520 12:14:07.183" level="INFO">{"output":{"response-message":["1:1:OFPCRROLEEQUAL"],"response-code":0}}</msg>
+<status status="PASS" endtime="20160520 12:14:07.183" starttime="20160520 12:14:07.182"></status>
+</kw>
+<kw name="Should Be Equal As Strings" library="BuiltIn">
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<arguments>
+<arg>${resp.status_code}</arg>
+<arg>200</arg>
+</arguments>
+<msg timestamp="20160520 12:14:07.184" level="INFO">Argument types are:
+&lt;type 'int'&gt;
+&lt;type 'unicode'&gt;</msg>
+<status status="PASS" endtime="20160520 12:14:07.184" starttime="20160520 12:14:07.183"></status>
+</kw>
+<kw name="Should Contain" library="BuiltIn">
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<arguments>
+<arg>${resp.content}</arg>
+<arg>1:1:OFPCRROLEEQUAL</arg>
+</arguments>
+<status status="PASS" endtime="20160520 12:14:07.184" starttime="20160520 12:14:07.184"></status>
+</kw>
+<doc>Set and get controller role</doc>
+<status status="PASS" endtime="20160520 12:14:07.185" critical="yes" starttime="20160520 12:14:05.627"></status>
+</test>
+<test id="s1-t2" name="Set role on cluster's controller2 instance and get it to check">
+<kw name="Create Session" library="RequestsLibrary">
+<doc>Create Session: create a HTTP session to a server</doc>
+<arguments>
+<arg>session</arg>
+<arg>http://${CONTROLLER2}:${RESTCONFPORT}</arg>
+<arg>auth=${AUTH}</arg>
+<arg>headers=${HEADERS_XML}</arg>
+</arguments>
+<msg timestamp="20160520 12:14:07.186" level="INFO">Creating Session using : alias=session, url=http://127.0.0.1:8181, headers={'Content-Type': 'application/json'},                     cookies=None, auth=&lt;requests.auth.HTTPBasicAuth object at 0x7fdd913f9890&gt;, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<status status="PASS" endtime="20160520 12:14:07.187" starttime="20160520 12:14:07.186"></status>
+</kw>
+<kw name="Post" library="RequestsLibrary">
+<doc>**Deprecated- See Post Request now**</doc>
+<arguments>
+<arg>session</arg>
+<arg>${SET_ROLE_REST_CONTEXT}</arg>
+<arg>data=${SET_ROLE_DATA}</arg>
+</arguments>
+<assign>
+<var>${resp}</var>
+</assign>
+<msg timestamp="20160520 12:14:07.187" level="WARN">Deprecation Warning: Use Post Request in the future</msg>
+<msg timestamp="20160520 12:14:07.188" level="INFO">Starting new HTTP connection (1): 127.0.0.1</msg>
+<msg timestamp="20160520 12:14:07.196" level="INFO">${resp} = &lt;Response [200]&gt;</msg>
+<status status="PASS" endtime="20160520 12:14:07.196" starttime="20160520 12:14:07.187"></status>
+</kw>
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${resp.content}</arg>
+</arguments>
+<msg timestamp="20160520 12:14:07.197" level="INFO">{"output":{"response-message":"Switch(es) role changed","response-code":0}}</msg>
+<status status="PASS" endtime="20160520 12:14:07.198" starttime="20160520 12:14:07.197"></status>
+</kw>
+<kw name="Should Be Equal As Strings" library="BuiltIn">
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<arguments>
+<arg>${resp.status_code}</arg>
+<arg>200</arg>
+</arguments>
+<msg timestamp="20160520 12:14:07.198" level="INFO">Argument types are:
+&lt;type 'int'&gt;
+&lt;type 'unicode'&gt;</msg>
+<status status="PASS" endtime="20160520 12:14:07.199" starttime="20160520 12:14:07.198"></status>
+</kw>
+<kw name="Create Session" library="RequestsLibrary">
+<doc>Create Session: create a HTTP session to a server</doc>
+<arguments>
+<arg>session</arg>
+<arg>http://${CONTROLLER1}:${RESTCONFPORT}</arg>
+<arg>auth=${AUTH}</arg>
+<arg>headers=${HEADERS_XML}</arg>
+</arguments>
+<msg timestamp="20160520 12:14:07.199" level="INFO">Creating Session using : alias=session, url=http://127.0.0.1:8181, headers={'Content-Type': 'application/json'},                     cookies=None, auth=&lt;requests.auth.HTTPBasicAuth object at 0x7fdd91408a50&gt;, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<status status="PASS" endtime="20160520 12:14:07.200" starttime="20160520 12:14:07.199"></status>
+</kw>
+<kw name="Post" library="RequestsLibrary">
+<doc>**Deprecated- See Post Request now**</doc>
+<arguments>
+<arg>session</arg>
+<arg>${GET_ROLE_REST_CONTEXT}</arg>
+<arg>data=${GET_ROLE_DATA}</arg>
+</arguments>
+<assign>
+<var>${resp}</var>
+</assign>
+<msg timestamp="20160520 12:14:07.201" level="WARN">Deprecation Warning: Use Post Request in the future</msg>
+<msg timestamp="20160520 12:14:07.203" level="INFO">Starting new HTTP connection (1): 127.0.0.1</msg>
+<msg timestamp="20160520 12:14:08.713" level="INFO">${resp} = &lt;Response [200]&gt;</msg>
+<status status="PASS" endtime="20160520 12:14:08.713" starttime="20160520 12:14:07.200"></status>
+</kw>
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${resp.content}</arg>
+</arguments>
+<msg timestamp="20160520 12:14:08.714" level="INFO">{"output":{"response-message":["1:1:OFPCRROLEEQUAL"],"response-code":0}}</msg>
+<status status="PASS" endtime="20160520 12:14:08.714" starttime="20160520 12:14:08.714"></status>
+</kw>
+<kw name="Should Be Equal As Strings" library="BuiltIn">
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<arguments>
+<arg>${resp.status_code}</arg>
+<arg>200</arg>
+</arguments>
+<msg timestamp="20160520 12:14:08.715" level="INFO">Argument types are:
+&lt;type 'int'&gt;
+&lt;type 'unicode'&gt;</msg>
+<status status="PASS" endtime="20160520 12:14:08.715" starttime="20160520 12:14:08.715"></status>
+</kw>
+<kw name="Should Contain" library="BuiltIn">
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<arguments>
+<arg>${resp.content}</arg>
+<arg>1:1:OFPCRROLEEQUAL</arg>
+</arguments>
+<status status="PASS" endtime="20160520 12:14:08.716" starttime="20160520 12:14:08.716"></status>
+</kw>
+<doc>Set and get controller role</doc>
+<status status="PASS" endtime="20160520 12:14:08.717" critical="yes" starttime="20160520 12:14:07.185"></status>
+</test>
+<test id="s1-t3" name="Set role on cluster's controller3 instance and get it to check">
+<kw name="Create Session" library="RequestsLibrary">
+<doc>Create Session: create a HTTP session to a server</doc>
+<arguments>
+<arg>session</arg>
+<arg>http://${CONTROLLER3}:${RESTCONFPORT}</arg>
+<arg>auth=${AUTH}</arg>
+<arg>headers=${HEADERS_XML}</arg>
+</arguments>
+<msg timestamp="20160520 12:14:08.719" level="INFO">Creating Session using : alias=session, url=http://127.0.0.1:8181, headers={'Content-Type': 'application/json'},                     cookies=None, auth=&lt;requests.auth.HTTPBasicAuth object at 0x7fdd91408810&gt;, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<status status="PASS" endtime="20160520 12:14:08.720" starttime="20160520 12:14:08.718"></status>
+</kw>
+<kw name="Post" library="RequestsLibrary">
+<doc>**Deprecated- See Post Request now**</doc>
+<arguments>
+<arg>session</arg>
+<arg>${SET_ROLE_REST_CONTEXT}</arg>
+<arg>data=${SET_ROLE_DATA}</arg>
+</arguments>
+<assign>
+<var>${resp}</var>
+</assign>
+<msg timestamp="20160520 12:14:08.721" level="WARN">Deprecation Warning: Use Post Request in the future</msg>
+<msg timestamp="20160520 12:14:08.723" level="INFO">Starting new HTTP connection (1): 127.0.0.1</msg>
+<msg timestamp="20160520 12:14:08.730" level="INFO">${resp} = &lt;Response [200]&gt;</msg>
+<status status="PASS" endtime="20160520 12:14:08.730" starttime="20160520 12:14:08.720"></status>
+</kw>
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${resp.content}</arg>
+</arguments>
+<msg timestamp="20160520 12:14:08.731" level="INFO">{"output":{"response-message":"Switch(es) role changed","response-code":0}}</msg>
+<status status="PASS" endtime="20160520 12:14:08.731" starttime="20160520 12:14:08.731"></status>
+</kw>
+<kw name="Should Be Equal As Strings" library="BuiltIn">
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<arguments>
+<arg>${resp.status_code}</arg>
+<arg>200</arg>
+</arguments>
+<msg timestamp="20160520 12:14:08.732" level="INFO">Argument types are:
+&lt;type 'int'&gt;
+&lt;type 'unicode'&gt;</msg>
+<status status="PASS" endtime="20160520 12:14:08.733" starttime="20160520 12:14:08.732"></status>
+</kw>
+<kw name="Create Session" library="RequestsLibrary">
+<doc>Create Session: create a HTTP session to a server</doc>
+<arguments>
+<arg>session</arg>
+<arg>http://${CONTROLLER1}:${RESTCONFPORT}</arg>
+<arg>auth=${AUTH}</arg>
+<arg>headers=${HEADERS_XML}</arg>
+</arguments>
+<msg timestamp="20160520 12:14:08.734" level="INFO">Creating Session using : alias=session, url=http://127.0.0.1:8181, headers={'Content-Type': 'application/json'},                     cookies=None, auth=&lt;requests.auth.HTTPBasicAuth object at 0x7fdd914181d0&gt;, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<status status="PASS" endtime="20160520 12:14:08.735" starttime="20160520 12:14:08.733"></status>
+</kw>
+<kw name="Post" library="RequestsLibrary">
+<doc>**Deprecated- See Post Request now**</doc>
+<arguments>
+<arg>session</arg>
+<arg>${GET_ROLE_REST_CONTEXT}</arg>
+<arg>data=${GET_ROLE_DATA}</arg>
+</arguments>
+<assign>
+<var>${resp}</var>
+</assign>
+<msg timestamp="20160520 12:14:08.736" level="WARN">Deprecation Warning: Use Post Request in the future</msg>
+<msg timestamp="20160520 12:14:08.737" level="INFO">Starting new HTTP connection (1): 127.0.0.1</msg>
+<msg timestamp="20160520 12:14:08.763" level="INFO">${resp} = &lt;Response [200]&gt;</msg>
+<status status="PASS" endtime="20160520 12:14:08.763" starttime="20160520 12:14:08.735"></status>
+</kw>
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${resp.content}</arg>
+</arguments>
+<msg timestamp="20160520 12:14:08.764" level="INFO">{"output":{"response-message":["1:1:OFPCRROLEEQUAL"],"response-code":0}}</msg>
+<status status="PASS" endtime="20160520 12:14:08.764" starttime="20160520 12:14:08.763"></status>
+</kw>
+<kw name="Should Be Equal As Strings" library="BuiltIn">
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<arguments>
+<arg>${resp.status_code}</arg>
+<arg>200</arg>
+</arguments>
+<msg timestamp="20160520 12:14:08.764" level="INFO">Argument types are:
+&lt;type 'int'&gt;
+&lt;type 'unicode'&gt;</msg>
+<status status="PASS" endtime="20160520 12:14:08.765" starttime="20160520 12:14:08.764"></status>
+</kw>
+<kw name="Should Contain" library="BuiltIn">
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<arguments>
+<arg>${resp.content}</arg>
+<arg>1:1:OFPCRROLEEQUAL</arg>
+</arguments>
+<status status="PASS" endtime="20160520 12:14:08.766" starttime="20160520 12:14:08.765"></status>
+</kw>
+<doc>Set and get controller role</doc>
+<status status="PASS" endtime="20160520 12:14:08.766" critical="yes" starttime="20160520 12:14:08.717"></status>
+</test>
+<kw type="teardown" name="Delete All Sessions" library="RequestsLibrary">
+<doc>Removes all the session objects</doc>
+<msg timestamp="20160520 12:14:08.768" level="INFO">Delete All Sessions</msg>
+<status status="PASS" endtime="20160520 12:14:08.768" starttime="20160520 12:14:08.767"></status>
+</kw>
+<doc>Test suite to verify ODL's role manager features are ok</doc>
+<status status="PASS" endtime="20160520 12:14:08.769" starttime="20160520 12:14:05.556"></status>
+</suite>
+<statistics>
+<total>
+<stat fail="0" pass="3">Critical Tests</stat>
+<stat fail="0" pass="3">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat fail="0" id="s1" name="Cplb-Role-Sanity-Test" pass="3">Cplb-Role-Sanity-Test</stat>
+</suite>
+</statistics>
+<errors>
+<msg timestamp="20160520 12:14:05.635" level="WARN">Deprecation Warning: Use Post Request in the future</msg>
+<msg timestamp="20160520 12:14:05.655" level="WARN">Deprecation Warning: Use Post Request in the future</msg>
+<msg timestamp="20160520 12:14:07.187" level="WARN">Deprecation Warning: Use Post Request in the future</msg>
+<msg timestamp="20160520 12:14:07.201" level="WARN">Deprecation Warning: Use Post Request in the future</msg>
+<msg timestamp="20160520 12:14:08.721" level="WARN">Deprecation Warning: Use Post Request in the future</msg>
+<msg timestamp="20160520 12:14:08.736" level="WARN">Deprecation Warning: Use Post Request in the future</msg>
+</errors>
+</robot>

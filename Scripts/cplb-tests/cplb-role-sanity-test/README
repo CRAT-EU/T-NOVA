@@ -1,0 +1,15 @@
+Test case:
+  - sanity check odl-rolemanager-* OpenDayligtht's features installed on each cluster node
+
+Dependency:
+  - pip install robotframework
+  - pip install -U robotframework-requests
+
+Prerequisities
+  - An OpenFlow 1.3 switch with the ID specified in the 'Variables.py' file up and connected with all the cluster's instances
+
+Setup:
+  - Edit Variables.py fields
+
+Usage:
+  - run: robot cplb-role-sanity-test.robot
