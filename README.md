@@ -2,7 +2,7 @@
 
 Load Balancer for the SDN Control traffic based on the OpenDaylight Beryllium release, developed within the T-NOVA EU research project.
 
-![alt tag](https://dl.dropboxusercontent.com/u/4632161/ODL_LB.png)
+![ODL LB Architecture](https://raw.githubusercontent.com/CRAT-EU/T-NOVA/master/ODL_LB.png)
 
 ## Description
 
