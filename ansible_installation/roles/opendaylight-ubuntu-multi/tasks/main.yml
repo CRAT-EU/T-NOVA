@@ -1,0 +1,139 @@
+---
+- name: Update APT and Install git, python-pip, python-paramiko, python-pystache
+  apt: pkg={{item}} update_cache=yes
+  with_items:
+  - git
+  - python-pip
+  - python-paramiko
+  - python-pystache
+  become: yes
+  become_method: sudo
+
+- name: Update pip
+  pip:
+    extra_args: '-U'
+    name: pip
+  become: yes
+  become_method: sudo
+
+- name: Pip install robotframework-sshlibrary
+  pip:
+    name: robotframework-sshlibrary
+  become: yes
+  become_method: sudo
+
+- name: Check if /tmp/distribution-karaf-0.0.4-SNAPSHOT.zip already exists
+  stat: path=/tmp/distribution-karaf-0.0.4-SNAPSHOT.zip
+  register: odl_file_exists
+
+- name: "Download locally opendaylight zip file"
+  get_url:
+    url: "https://github.com/CRAT-EU/T-NOVA/releases/download/latest/distribution-karaf-CRAT-LATEST.zip"
+    dest: "/tmp/distribution-karaf-0.0.4-SNAPSHOT.zip"
+  when: not odl_file_exists.stat.exists
+
+- name: Check if CRAT-EU/T-NOVA.git already exists
+  stat:
+    path: "/home/{{ ansible_ssh_user }}/T-NOVA"
+  register: git_crat_exists
+
+- name: Clone git repository CRAT-EU/T-NOVA.git
+  git:
+    repo: https://github.com/CRAT-EU/T-NOVA.git
+#    repo: https://github.com/yan0s/T-NOVA.git
+    dest: "/home/{{ ansible_ssh_user }}/T-NOVA"
+    clone: yes
+  when: not git_crat_exists.stat.exists
+
+- name: Create temp directory
+  file:
+    path: "/home/{{ ansible_ssh_user }}/T-NOVA/Tools/cluster-deployer/cluster-deployer/temp"
+#    path: "/home/{{ ansible_ssh_user }}/T-NOVA/Scripts/cluster-deployer/cluster-deployer/temp"
+    state: directory
+
+
+- name: Copy local private ssh key to load balancer vm
+  copy:
+    src: "{{ GLOB_OS_SSH_KEYPATH }}"
+    dest: "/home/{{ ansible_ssh_user }}/.ssh/prv_key"
+    owner: "{{ ansible_ssh_user }}"
+    group: "{{ ansible_ssh_user }}"
+    mode: 0600
+
+
+- set_fact:
+     ips1: "{{ hostvars[item].ip_list|join(',') }}"
+  with_items:  "{{ groups['openstack-controller'] }}"
+
+# SSH via username - private key
+- name: Deploy Opendaylight cluster
+  shell: python deploy.py --clean --distribution=/tmp/distribution-karaf-0.0.4-SNAPSHOT.zip --rootdir=/home/{{ ansible_ssh_user }} --hosts={{ hostvars[item].ip_list|join(',') }} --user={{ GLOB_OS_SSH_USERNAME }} --keyfile="/home/{{ ansible_ssh_user }}/.ssh/prv_key" --template=lb-test
+  args:
+    chdir: "/home/{{ ansible_ssh_user }}/T-NOVA/Tools/cluster-deployer/cluster-deployer/"
+#    chdir: "/home/{{ ansible_ssh_user }}/T-NOVA/Scripts/cluster-deployer/cluster-deployer/"
+  with_items:  "{{ groups['openstack-controller'] }}" # openstack-controller works, NOT odl-cluster
+  become: yes
+  become_method: sudo
+
+
+# # SSH via username - password
+#- name: Deploy Opendaylight cluster
+#  shell: python deploy.py --clean --distribution=/tmp/distribution-karaf-0.0.4-SNAPSHOT.zip --rootdir=/home/{{ GLOB_OS_SSH_USERNAME }} --hosts={{ hostvars[item].ip_list|join(',') }} --user={{ GLOB_OS_SSH_USERNAME }} --password={{ GLOB_OS_SSH_PASSWORD }} --template=lb-test
+#  args:
+#    chdir: "/home/{{ ansible_ssh_user }}/T-NOVA/Scripts/cluster-deployer/cluster-deployer/"
+#  with_items:  "{{ groups['openstack-controller'] }}"
+
+#- name: Set fact 1
+#  set_fact:
+#     ips1: "{{ hostvars[item].ip_list|join(',') }}"
+#  with_items:  "{{ groups['openstack-controller'] }}"
+#
+#
+#- name: Print IPS os
+#  debug:
+#    var: ips1
+#
+#- debug:
+#    var: "{{ hostvars[item].ip_list|join(',') }}"
+#  with_items:  "{{ groups['openstack-controller'] }}"
+#  register: ips2
+#
+#
+#- debug:
+#    var: ips2
+
+
+# Download Load Balancer jar
+
+- name: Download Load Balancer jar
+  get_url:
+    url: "https://github.com/CRAT-EU/T-NOVA/releases/download/latest/t-nova-sdn-cp-loadbalancer-1.0.jar"
+    dest: "~/T-NOVA/CPLoadBalancer"
+    mode: "0755"
+
+
+# Run Load Balancer jar
+
+- name: Set ips
+  set_fact:
+     ips2: "{{ hostvars[item].ip_list }}"
+  with_items:  "{{ groups['openstack-controller'] }}"
+
+- name: Print IPS
+  debug:
+    var: ips2
+
+- name: Set string to append to each ip
+  set_fact:
+     str2append: ":22:{{ GLOB_OS_SSH_USERNAME }}:{{ GLOB_OS_SSH_PASSWORD }}:{{ GLOB_OS_REMOTE_SSH_KEYPATH }}\n"
+
+- name: Modify config.ini
+  template:
+    src: "config.ini"
+    dest: "~/T-NOVA/CPLoadBalancer"
+
+
+- name: Run Load Balancer jar
+  shell: "nohup java -jar t-nova-sdn-cp-loadbalancer-1.0.jar & "
+  args:
+    chdir: "~/T-NOVA/CPLoadBalancer"

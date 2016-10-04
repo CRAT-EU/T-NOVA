@@ -1,0 +1,21 @@
+---
+# Run Load Balancer jar
+
+#- name: Set ips
+#  set_fact:
+#     ips2: "{{ hostvars[item].ip_list }}"
+#  with_items:  "{{ groups['openstack-controller'] }}"
+#
+#- name: Print IPS
+#  debug:
+#    var: ips2
+
+- name: Set str2append to each ip
+  set_fact:
+     str2append: ":22:{{ GLOB_OS_SSH_USERNAME }}:{{ GLOB_OS_SSH_PASSWORD }}:{{ GLOB_OS_REMOTE_SSH_KEYPATH }}\n"
+
+
+- name: Modify config.ini
+  template:
+    src: "config.ini"
+    dest: "~/T-NOVA/CPLoadBalancer"

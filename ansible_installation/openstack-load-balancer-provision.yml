@@ -1,0 +1,9 @@
+---
+- hosts: openstack-controller
+  vars:
+    inventory_group_name: "load-balancer"
+    keep_in_list: "false"
+    vms_to_provision: "{{ LOAD_BALANCER }}"
+  roles:
+    - openstack-vm-provision
+

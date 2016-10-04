@@ -1,0 +1,6 @@
+---
+- include: openstack-load-balancer-provision.yml
+- include: openstack-odl-cluster-provision.yml
+- include: ansible-oracle-java.yml
+- include: maven.yml
+- include: odl-cluster.yml

@@ -1,0 +1,11 @@
+- hosts: all
+  become: yes
+  become_method: sudo
+  tasks:
+    - include: 'tasks/main.yml'
+  vars_files:
+    - 'defaults/main.yml'
+
+  vars:
+    #java_version: 8
+    #java_subversion: 77
