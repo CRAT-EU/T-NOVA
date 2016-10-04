@@ -1,0 +1,7 @@
+---
+- name: Update APT and Install unzip
+  apt: pkg={{ item }} update_cache=yes
+  with_items:
+  - unzip
+  become: yes
+  become_method: sudo

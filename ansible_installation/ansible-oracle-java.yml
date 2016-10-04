@@ -1,0 +1,13 @@
+---
+#- hosts: odl-cluster:load-balancer
+- hosts: ld
+  become: yes
+  become_method: sudo
+  roles:
+    - ansible-oracle-java
+#    - opendaylight-node-dependencies
+  vars:
+    java_version: 8
+    java_subversion: 77
+  environment:
+    JAVA_HOME: "/usr/java/jdk1.{{ java_version }}.0_{{ java_subversion }}/"

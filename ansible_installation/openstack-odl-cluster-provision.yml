@@ -1,0 +1,8 @@
+---
+- hosts: openstack-controller
+  vars:
+    inventory_group_name: "odl-cluster"
+    keep_in_list: "true"
+    vms_to_provision: "{{ OPENDAYLIGHT_CLUSTER }}"
+  roles:
+    - openstack-vm-provision

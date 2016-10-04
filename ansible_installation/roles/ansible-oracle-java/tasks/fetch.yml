@@ -1,0 +1,17 @@
+#
+# fetch .rpm or .tar.gz files
+#
+
+- name: get JDK tarball (as RPM file)
+  get_url:
+    url:     "{{ jdk_tarball_url }}.rpm"
+    headers: 'Cookie:oraclelicense=accept-securebackup-cookie'
+    dest:    "{{ java_download_path }}/{{ jdk_tarball_file }}.rpm"
+  when: ansible_pkg_mgr == "yum"
+
+- name: get JDK tarball (as tar.gz file)
+  get_url:
+    url:     "{{ jdk_tarball_url }}.tar.gz"
+    headers: 'Cookie:oraclelicense=accept-securebackup-cookie'
+    dest:    "{{ java_download_path }}/{{ jdk_tarball_file }}.tar.gz"
+  when: ansible_pkg_mgr != "yum"

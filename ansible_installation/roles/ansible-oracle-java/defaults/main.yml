@@ -1,0 +1,21 @@
+---
+
+#
+# variables needed to be defined in user's playbook
+#
+
+
+
+#
+# user-configurable defaults
+#
+
+java_version: 8
+java_subversion: 77
+#java_version: 7
+#java_subversion: 75
+
+
+java_download_path: /tmp
+java_download_from_oracle: true
+java_remove_download: true

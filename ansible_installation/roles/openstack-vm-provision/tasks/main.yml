@@ -1,0 +1,3 @@
+---
+- include: launch_vm.yml INSTNAME="{{ item }}"
+  with_items: "{{ vms_to_provision }}"

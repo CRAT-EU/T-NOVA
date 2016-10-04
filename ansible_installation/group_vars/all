@@ -1,0 +1,13 @@
+---
+GLOB_OS_SSH_USERNAME: ubuntu
+GLOB_OS_SSH_PASSWORD: none
+GLOB_OS_SSH_KEYPATH: /home/yanos/.ssh/os_key.pem
+GLOB_OS_REMOTE_SSH_KEYPATH: /home/ubuntu/.ssh/prv_key
+GLOB_OS_PYTHON_VENV: /home/localadmin/ansible_venv/bin/
+
+OPENDAYLIGHT_CLUSTER:
+  - ansible-odl-node-1
+  - ansible-odl-node-2
+
+LOAD_BALANCER:
+  - ansible-load-balancer

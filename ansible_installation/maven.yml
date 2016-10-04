@@ -1,0 +1,4 @@
+---
+- hosts: load-balancer
+  roles:
+    - maven
